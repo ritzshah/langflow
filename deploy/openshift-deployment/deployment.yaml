@@ -1,0 +1,53 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: langflow-app
+  namespace: langflow
+  labels:
+    app: langflow-app
+    app.kubernetes.io/component: langflow-app
+    app.kubernetes.io/instance: langflow-app
+    app.kubernetes.io/name: langflow-app
+    app.kubernetes.io/part-of: langflow-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: langflow-app
+  template:
+    metadata:
+      labels:
+        app: langflow-app
+        deployment: langflow-app
+    spec:
+      containers:
+        - name: langflow-app
+          image: 'image-registry.openshift-image-registry.svc:5000/langflow/langflow-app@sha256:95f57683de80b5718d101a40551b68c846148e6feb2358840e8505f4e6c110ec'
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          imagePullPolicy: Always
+          volumeMounts:
+            - name: langflow-data
+              mountPath: /home/user/.cache
+            - name: langflow-test
+              mountPath: /home/user/test
+      volumes:
+        - name: langflow-data
+          persistentVolumeClaim:
+            claimName: langflow-data
+        - name: langflow-test
+          persistentVolumeClaim:
+            claimName: langflow-local
+      restartPolicy: Always
+      terminationGracePeriodSeconds: 30
+      dnsPolicy: ClusterFirst
+      securityContext: {}
+      schedulerName: default-scheduler
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 25%
+      maxSurge: 25%
+  revisionHistoryLimit: 10
+  progressDeadlineSeconds: 600

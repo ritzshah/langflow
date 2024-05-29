@@ -28,5 +28,7 @@ COPY --chown=user . $HOME/app
 # Install the required Python packages
 RUN pip install langflow>=0.5.0 -U --user
 
+ENV LANGFLOW_LOG_DIR=/dev/null
+
 # Command to run the application
 CMD ["python", "-m", "langflow", "run", "--host", "0.0.0.0", "--port", "7860"]

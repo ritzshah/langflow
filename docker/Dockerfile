@@ -7,8 +7,8 @@ USER user
 ENV HOME=/home/user \
 	PATH=/home/user/.local/bin:$PATH
 
-RUN mkdir $HOME/.cache
-RUN mkdir $HOME/.cache/langflow
+RUN mkdir -p $HOME/.cache/langflow && \
+    chmod -R 755 $HOME/.cache/langflow
 
 WORKDIR $HOME/app
 

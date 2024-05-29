@@ -16,6 +16,10 @@ RUN mkdir -p $HOME/.cache/langflow && \
     chown -R user:user $HOME/.cache/langflow && \
     chmod -R 755 $HOME/.cache/langflow
 
+RUN mkdir -p $HOME/.cache/pip && \
+    chown -R user:user $HOME/.cache/pip && \
+    chmod -R 755 $HOME/.cache/pip
+
 # Set the user to the non-root user
 USER user
 
@@ -29,6 +33,7 @@ COPY --chown=user . $HOME/app
 RUN pip install langflow>=0.5.0 -U --user
 
 ENV LANGFLOW_LOG_DIR=/dev/null
+ENV LANGFLOW_LOG_LEVEL="CRITICAL"
 
 # Command to run the application
 CMD ["python", "-m", "langflow", "run", "--host", "0.0.0.0", "--port", "7860"]

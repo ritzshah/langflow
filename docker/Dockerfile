@@ -2,7 +2,7 @@ FROM python:3.10-slim
 
 RUN apt-get update && apt-get install gcc g++ git make -y && apt-get clean \
 	&& rm -rf /var/lib/apt/lists/*
-RUN useradd -m -u 1000 user
+RUN useradd -m -u 1000 user && usermod -aG root user
 USER user
 ENV HOME=/home/user \
 	PATH=/home/user/.local/bin:$PATH

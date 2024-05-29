@@ -8,6 +8,7 @@ ENV HOME=/home/user \
 	PATH=/home/user/.local/bin:$PATH
 
 RUN mkdir -p $HOME/.cache/langflow && \
+    chown -R user:user /home/user/.cache/langflow && \
     chmod -R 755 $HOME/.cache/langflow
 
 WORKDIR $HOME/app

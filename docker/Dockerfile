@@ -6,7 +6,6 @@ RUN useradd -m -u 1000 user
 USER user
 ENV HOME=/home/user \
 	PATH=/home/user/.local/bin:$PATH
-RUN mkdir -p /.cache/langflow
 
 WORKDIR $HOME/app
 

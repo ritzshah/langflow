@@ -32,7 +32,6 @@ COPY --chown=user . $HOME/app
 # Install the required Python packages
 RUN pip install langflow>=0.5.0 -U --user
 
-ENV LANGFLOW_LOG_DIR=/dev/null
 ENV LANGFLOW_LOG_LEVEL="CRITICAL"
 
 # Command to run the application

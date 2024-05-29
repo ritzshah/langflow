@@ -30,6 +30,7 @@ WORKDIR $HOME/app
 COPY --chown=user . $HOME/app
 
 # Install the required Python packages
+RUN pip install --upgrade pip
 RUN pip install langflow>=0.5.0 -U --user
 
 #ENV LANGFLOW_LOG_LEVEL="CRITICAL"
